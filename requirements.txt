@@ -6,3 +6,4 @@ pyasn1==0.4.8
 pycparser==2.20
 pycryptodome==3.9.8
 idna==2.10
+speedtest-cli
