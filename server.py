@@ -21,17 +21,9 @@ import os
 if __name__ == "__main__":
     import inspect
 
-    os.chdir(
-        os.path.dirname(
-            os.path.realpath(inspect.getfile(inspect.currentframe()))
-        )
-    )
+    os.chdir(os.path.dirname(os.path.realpath(inspect.getfile(inspect.currentframe()))))
 
-import db_transfer
-import web_transfer
-import speedtest_thread
 import auto_thread
-import auto_block
 from multiprocessing import Process
 from shadowsocks import shell
 from configloader import get_config
@@ -50,24 +42,27 @@ class MainThread(Process):
 
 
 def main():
-    logging.basicConfig(
-        level=logging.INFO, format="%(levelname)-s: %(message)s"
-    )
+    logging.basicConfig(level=logging.INFO, format="%(levelname)-s: %(message)s")
 
     shell.check_python()
 
     if get_config().API_INTERFACE == "modwebapi":
+        import web_transfer
+
         threadMain = MainThread(web_transfer.WebTransfer)
     else:
+        import db_transfer
+
         threadMain = MainThread(db_transfer.DbTransfer)
     threadMain.start()
-    if get_config().SPEEDTEST != 0:
+    if get_config().SPEEDTEST:
+        import speedtest_thread
+
         threadSpeedtest = MainThread(speedtest_thread.Speedtest)
         threadSpeedtest.start()
-    if get_config().AUTOEXEC != 0:
-        threadAutoexec = MainThread(auto_thread.AutoExec)
-        threadAutoexec.start()
-    if get_config().CLOUDSAFE != 0 and get_config().ANTISSATTACK != 0:
+    if get_config().CLOUDSAFE and get_config().ANTISSATTACK:
+        import auto_block
+
         threadAutoblock = MainThread(auto_block.AutoBlock)
         threadAutoblock.start()
 
@@ -79,13 +74,10 @@ def main():
 
         traceback.print_exc()
         threadMain.stop()
-        if get_config().SPEEDTEST != 0:
+        if get_config().SPEEDTEST:
             if threadSpeedtest.is_alive():
                 threadSpeedtest.stop()
-        if get_config().AUTOEXEC != 0:
-            if threadAutoexec.is_alive():
-                threadAutoexec.stop()
-        if get_config().CLOUDSAFE != 0 and get_config().ANTISSATTACK != 0:
+        if get_config().CLOUDSAFE and get_config().ANTISSATTACK:
             if threadAutoblock.is_alive():
                 threadAutoblock.stop()
 
