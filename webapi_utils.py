@@ -19,7 +19,7 @@ class WebApi(object):
         """
         params["key"] = get_config().WEBAPI_TOKEN
         response = self.session_pool.get(
-            "%s/mod_mu/%s" % (get_config().WEBAPI_URL, uri),
+            "%s/api/v1/server/Ssr/%s" % (get_config().WEBAPI_URL, uri),
             params=params,
             timeout=10,
         )
@@ -53,7 +53,7 @@ class WebApi(object):
         """
         params["key"] = get_config().WEBAPI_TOKEN
         response = self.session_pool.post(
-            "%s/mod_mu/%s" % (get_config().WEBAPI_URL, uri),
+            "%s/api/v1/server/Ssr/%s" % (get_config().WEBAPI_URL, uri),
             params=params,
             json=json,
             timeout=10,
