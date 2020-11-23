@@ -638,7 +638,7 @@ class WebTransfer(object):
             while True:
                 load_config()
                 try:
-                    ping = webapi.getApi("func/ping")
+                    ping = webapi.getApi("ping")
                     if ping is None:
                         logging.error(
                             "something wrong with your http api, please check your config and website status and try again later."
