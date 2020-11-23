@@ -216,10 +216,10 @@ class WebTransfer(object):
         # 读取节点IP
         # SELECT * FROM `ss_node`  where `node_ip` != ''
         self.node_ip_list = []
-        data = webapi.getApi("nodes")
-        for node in data:
-            temp_list = str(node["node_ip"]).split(",")
-            self.node_ip_list.append(temp_list[0])
+#         data = webapi.getApi("nodes")
+#         for node in data:
+#             temp_list = str(node["node_ip"]).split(",")
+#             self.node_ip_list.append(temp_list[0])
 
         # 读取审计规则,数据包匹配部分
 
