@@ -193,7 +193,7 @@ class WebTransfer(object):
     def pull_db_all_user(self):
         global webapi
 
-        nodeinfo = webapi.getApi("nodes/%d/info" % (get_config().NODE_ID))
+        nodeinfo = webapi.getApi("info", {"node_id": get_config().NODE_ID})
 
         if not nodeinfo:
             rows = []
