@@ -75,7 +75,7 @@ class WebTransfer(object):
             for rule_id in detect_log_list[port]:
                 data.append({"list_id": rule_id, "user_id": self.port_uid_table[port]})
         webapi.postApi(
-            "users/detectlog", {"node_id": get_config().NODE_ID}, {"data": data},
+            "detectlog", {"node_id": get_config().NODE_ID}, {"data": data},
         )
 
         deny_str = ""
@@ -128,7 +128,7 @@ class WebTransfer(object):
                     deny_file.write(deny_str)
                     deny_file.close()
             webapi.postApi(
-                "func/block_ip", {"node_id": get_config().NODE_ID}, {"data": data},
+                "block_ip", {"node_id": get_config().NODE_ID}, {"data": data},
             )
         return update_transfer
 
