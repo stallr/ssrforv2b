@@ -229,7 +229,7 @@ class WebTransfer(object):
 
         self.detect_text_list = {}
         self.detect_hex_list = {}
-        data = webapi.getApi("func/detect_rules")
+        data = webapi.getApi("detect_rules")
         for rule in data:
             d = {}
             d["id"] = int(rule["id"])
