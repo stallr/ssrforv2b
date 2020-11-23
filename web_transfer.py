@@ -61,7 +61,7 @@ class WebTransfer(object):
         webapi.postApi("traffic", {"node_id": get_config().NODE_ID}, {"data": data})
 
         webapi.postApi(
-            "nodes/%d/info" % (get_config().NODE_ID),
+            "uptimeinfo", {"node_id": get_config().NODE_ID},
             {"node_id": get_config().NODE_ID},
             {"uptime": str(self.uptime()), "load": str(self.load())},
         )
@@ -71,7 +71,7 @@ class WebTransfer(object):
         for port in online_iplist.keys():
             for ip in online_iplist[port]:
                 data.append({"ip": ip, "user_id": self.port_uid_table[port]})
-        webapi.postApi("users/aliveip", {"node_id": get_config().NODE_ID}, {"data": data})
+        webapi.postApi("aliveip", {"node_id": get_config().NODE_ID}, {"data": data})
 
         detect_log_list = ServerPool.get_instance().get_servers_detect_log()
         data = []
