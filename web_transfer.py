@@ -60,27 +60,27 @@ class WebTransfer(object):
             update_transfer[id] = dt_transfer[id]
         webapi.postApi("traffic", {"node_id": get_config().NODE_ID}, {"data": data})
 
-#         webapi.postApi(
-#             "nodes/%d/info" % (get_config().NODE_ID),
-#             {"node_id": get_config().NODE_ID},
-#             {"uptime": str(self.uptime()), "load": str(self.load())},
-#         )
+        webapi.postApi(
+            "nodes/%d/info" % (get_config().NODE_ID),
+            {"node_id": get_config().NODE_ID},
+            {"uptime": str(self.uptime()), "load": str(self.load())},
+        )
 
         online_iplist = ServerPool.get_instance().get_servers_iplist()
         data = []
         for port in online_iplist.keys():
             for ip in online_iplist[port]:
                 data.append({"ip": ip, "user_id": self.port_uid_table[port]})
-#         webapi.postApi("users/aliveip", {"node_id": get_config().NODE_ID}, {"data": data})
+        webapi.postApi("users/aliveip", {"node_id": get_config().NODE_ID}, {"data": data})
 
         detect_log_list = ServerPool.get_instance().get_servers_detect_log()
         data = []
         for port in detect_log_list.keys():
             for rule_id in detect_log_list[port]:
                 data.append({"list_id": rule_id, "user_id": self.port_uid_table[port]})
-#         webapi.postApi(
-#             "users/detectlog", {"node_id": get_config().NODE_ID}, {"data": data},
-#         )
+        webapi.postApi(
+            "users/detectlog", {"node_id": get_config().NODE_ID}, {"data": data},
+        )
 
         deny_str = ""
         data = []
@@ -131,9 +131,9 @@ class WebTransfer(object):
                     fcntl.flock(deny_file.fileno(), fcntl.LOCK_EX)
                     deny_file.write(deny_str)
                     deny_file.close()
-#             webapi.postApi(
-#                 "func/block_ip", {"node_id": get_config().NODE_ID}, {"data": data},
-#             )
+            webapi.postApi(
+                "func/block_ip", {"node_id": get_config().NODE_ID}, {"data": data},
+            )
         return update_transfer
 
     def uptime(self):
