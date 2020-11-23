@@ -60,11 +60,7 @@ class WebTransfer(object):
             update_transfer[id] = dt_transfer[id]
         webapi.postApi("traffic", {"node_id": get_config().NODE_ID}, {"data": data})
 
-        webapi.postApi(
-            "uptimeinfo", {"node_id": get_config().NODE_ID},
-            {"node_id": get_config().NODE_ID},
-            {"uptime": str(self.uptime()), "load": str(self.load())},
-        )
+        webapi.postApi("uptimeinfo", {"node_id": get_config().NODE_ID}, {"node_id": get_config().NODE_ID})
 
         online_iplist = ServerPool.get_instance().get_servers_iplist()
         data = []
