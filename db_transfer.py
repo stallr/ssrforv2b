@@ -787,7 +787,7 @@ class DbTransfer(object):
                 if float(self.node_speedlimit) > 0.0 or float(cfg["node_speedlimit"]) > 0.0:
                     cfg["node_speedlimit"] = min(float(self.node_speedlimit), float(cfg["node_speedlimit"]))
             else:
-                cfg["node_speedlimit"] = min(float(self.node_speedlimit), float(0.00))
+                cfg["node_speedlimit"] = max(float(self.node_speedlimit), float(0.00))
 
             if "disconnect_ip" not in cfg:
                 cfg["disconnect_ip"] = ""
