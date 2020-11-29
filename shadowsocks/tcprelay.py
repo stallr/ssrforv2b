@@ -1752,7 +1752,7 @@ class TCPRelay(object):
                     if float(
                             self.mu_bandwidth) > 0.0 or float(
                             self.multi_user_table[id]['node_speedlimit']) * 128 > 0.0:
-                        bandwidth = max(
+                        bandwidth = min(
                             float(
                                 self.mu_bandwidth), float(
                                 self.multi_user_table[id]['node_speedlimit']) * 128)
